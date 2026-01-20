@@ -336,28 +336,6 @@
   font-size: 0.85rem;
 }
 
-.status-message {
-  background: #fff;
-  border-radius: 18px;
-  padding: 1.5rem;
-  box-shadow: 0 12px 30px rgba(29, 17, 64, 0.08);
-  border: 1px solid rgba(155, 92, 255, 0.2);
-}
-
-.status-message h3 {
-  margin: 0 0 0.4rem;
-}
-
-.status-message p {
-  margin: 0;
-  color: #665b8f;
-}
-
-.status-error {
-  border-color: rgba(255, 122, 89, 0.4);
-  background: rgba(255, 122, 89, 0.08);
-}
-
 .modal {
   position: fixed;
   inset: 0;
