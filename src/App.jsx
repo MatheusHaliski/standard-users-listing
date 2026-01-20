@@ -10,7 +10,6 @@ const users = [
     city: 'Campinas',
     photo:
       'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="%23ff7a59"/><stop offset="1" stop-color="%239b5cff"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">SM</text></svg>',
-    password: '********',
     email: 'sofia@frandelli.social',
     civilStatus: 'Single',
     accountType: 'criador',
@@ -24,7 +23,6 @@ const users = [
     city: 'Lisboa',
     photo:
       'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="1" x2="0" y1="0" y2="1"><stop stop-color="%2303c988"/><stop offset="1" stop-color="%230042ff"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">LO</text></svg>',
-    password: '********',
     email: 'lucas@frandelli.social',
     civilStatus: 'Married',
     accountType: 'marca',
@@ -38,7 +36,6 @@ const users = [
     city: 'San Diego',
     photo:
       'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="1" y2="0"><stop stop-color="%23ffd166"/><stop offset="1" stop-color="%23ff006e"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">MK</text></svg>',
-    password: '********',
     email: 'maya@frandelli.social',
     civilStatus: 'Single',
     accountType: 'pessoa',
@@ -52,7 +49,6 @@ const users = [
     city: 'Rio de Janeiro',
     photo:
       'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="%2348cae4"/><stop offset="1" stop-color="%230077b6"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="38" fill="white" font-family="Arial" text-anchor="middle">FP</text></svg>',
-    password: '********',
     email: 'hello@frandelli.social',
     civilStatus: 'Empresa',
     accountType: 'empresa',
@@ -64,7 +60,9 @@ function App() {
     <div className="app">
       <section className="auth-view" id="signin">
         <header className="app-header">
-          <div className="logo-mark">FC</div>
+          <div className="logo-mark">
+            <img className="logo-image" src="/fr1.png" alt="Frandelli logo" />
+          </div>
           <div>
             <p className="brand-title">Frandelli C. Social</p>
             <p className="brand-subtitle">by Frandelli Platforms</p>
@@ -109,7 +107,9 @@ function App() {
 
       <section className="signup-view" id="signup">
         <header className="app-header">
-          <div className="logo-mark">FC</div>
+          <div className="logo-mark">
+            <img className="logo-image" src="/fr1.png" alt="Frandelli logo" />
+          </div>
           <div>
             <p className="brand-title">Frandelli C. Social</p>
             <p className="brand-subtitle">New account setup</p>
@@ -183,7 +183,9 @@ function App() {
       <section className="listing-view">
         <header className="listing-header">
           <div className="listing-brand">
-            <div className="logo-mark">FC</div>
+            <div className="logo-mark">
+              <img className="logo-image" src="/fr1.png" alt="Frandelli logo" />
+            </div>
             <div>
               <p className="brand-title">Frandelli C. Social</p>
               <p className="brand-subtitle">FSusercontrol directory</p>
@@ -283,9 +285,6 @@ function App() {
                   </p>
                   <p>
                     <strong>Civil status:</strong> {user.civilStatus}
-                  </p>
-                  <p>
-                    <strong>Password:</strong> {user.password}
                   </p>
                 </div>
               </div>
