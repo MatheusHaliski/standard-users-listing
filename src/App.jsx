@@ -99,15 +99,21 @@ function App() {
                     .map((byte) => byte.toString(16).padStart(2, '0'))
                     .join('')
 
-                  const response = await fetch(endpoint)
-                  const payload = await response.json()
-                  const expectedHash = payload.hash
+                  const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ hash }),
+                  })
 
-                  if (!expectedHash) {
-                    throw new Error('Missing PIN hash')
+                  if (!response.ok) {
+                    throw new Error('PIN validation failed')
                   }
 
-                  if (hash === expectedHash) {
+                  const payload = await response.json()
+
+                  if (payload.valid) {
                     setPinUnlocked(true)
                     setPinStatus('idle')
                   } else {
