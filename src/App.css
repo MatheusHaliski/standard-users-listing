@@ -52,6 +52,26 @@
   background: #ffffff;
 }
 
+.pin-view {
+  padding: 4rem 6vw;
+  background: radial-gradient(circle at top, #fdf7ff, #f8f4ff);
+  min-height: 100vh;
+}
+
+.pin-card {
+  max-width: 520px;
+  background: linear-gradient(135deg, #f7f2ff, #fef6f1);
+  border-radius: 24px;
+  padding: 2.75rem;
+  box-shadow: 0 20px 50px rgba(29, 17, 64, 0.1);
+}
+
+.pin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 .auth-layout {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -334,6 +354,28 @@
   gap: 0.45rem;
   color: #3f356a;
   font-size: 0.85rem;
+}
+
+.status-message {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(29, 17, 64, 0.08);
+  border: 1px solid rgba(155, 92, 255, 0.2);
+}
+
+.status-message h3 {
+  margin: 0 0 0.4rem;
+}
+
+.status-message p {
+  margin: 0;
+  color: #665b8f;
+}
+
+.status-error {
+  border-color: rgba(255, 122, 89, 0.4);
+  background: rgba(255, 122, 89, 0.08);
 }
 
 .modal {
