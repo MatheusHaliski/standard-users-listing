@@ -1,73 +1,93 @@
 import './App.css'
 
-const listings = [
+const users = [
   {
     id: 1,
-    title: 'PulseCity Community Board',
-    summary: 'Live neighborhood updates, local meetups, and verified posts from city leaders.',
-    tag: 'Local',
+    name: 'Sofia Martins',
+    birthdate: '1994-03-12',
+    country: 'Brazil',
+    state: 'São Paulo',
+    city: 'Campinas',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="%23ff7a59"/><stop offset="1" stop-color="%239b5cff"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">SM</text></svg>',
+    password: '********',
+    email: 'sofia@frandelli.social',
+    civilStatus: 'Single',
+    accountType: 'criador',
   },
   {
     id: 2,
-    title: 'Creator Spotlight Hub',
-    summary: 'A space for rising creators to share reels, tips, and brand collaborations.',
-    tag: 'Creators',
+    name: 'Lucas Ortega',
+    birthdate: '1988-11-05',
+    country: 'Portugal',
+    state: 'Lisbon',
+    city: 'Lisboa',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="1" x2="0" y1="0" y2="1"><stop stop-color="%2303c988"/><stop offset="1" stop-color="%230042ff"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">LO</text></svg>',
+    password: '********',
+    email: 'lucas@frandelli.social',
+    civilStatus: 'Married',
+    accountType: 'marca',
   },
   {
     id: 3,
-    title: 'Wellness Circles',
-    summary: 'Mindful routines, journaling prompts, and daily encouragement from peers.',
-    tag: 'Wellness',
+    name: 'Maya Kim',
+    birthdate: '1999-07-21',
+    country: 'USA',
+    state: 'California',
+    city: 'San Diego',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="1" y2="0"><stop stop-color="%23ffd166"/><stop offset="1" stop-color="%23ff006e"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">MK</text></svg>',
+    password: '********',
+    email: 'maya@frandelli.social',
+    civilStatus: 'Single',
+    accountType: 'pessoa',
   },
   {
     id: 4,
-    title: 'Startup Signal Rooms',
-    summary: 'Pitch decks, investor AMA sessions, and cofounder matchmaking sessions.',
-    tag: 'Business',
-  },
-  {
-    id: 5,
-    title: 'WorldLens Newsfeed',
-    summary: 'Curated headlines with a focus on fact checks and diverse perspectives.',
-    tag: 'News',
-  },
-  {
-    id: 6,
-    title: 'Studio Streams',
-    summary: 'Live rooms for creators to host sessions, workshops, and community talks.',
-    tag: 'Live',
+    name: 'Frandelli Platforms',
+    birthdate: '2012-09-01',
+    country: 'Brazil',
+    state: 'Rio de Janeiro',
+    city: 'Rio de Janeiro',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="%2348cae4"/><stop offset="1" stop-color="%230077b6"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="38" fill="white" font-family="Arial" text-anchor="middle">FP</text></svg>',
+    password: '********',
+    email: 'hello@frandelli.social',
+    civilStatus: 'Empresa',
+    accountType: 'empresa',
   },
 ]
 
 function App() {
   return (
     <div className="app">
-      <section className="auth-view">
+      <section className="auth-view" id="signin">
         <header className="app-header">
-          <div className="logo-mark">SP</div>
+          <div className="logo-mark">FC</div>
           <div>
-            <p className="brand-title">SignalPulse</p>
-            <p className="brand-subtitle">Connect every voice. Share every moment.</p>
+            <p className="brand-title">Frandelli C. Social</p>
+            <p className="brand-subtitle">by Frandelli Platforms</p>
           </div>
         </header>
         <div className="auth-layout">
           <div className="auth-hero">
-            <p className="hero-kicker">Welcome back</p>
+            <p className="hero-kicker">Welcome to Frandelli C. Social</p>
             <h1 className="hero-title">
-              SignalPulse is the social media platform where communities become conversations.
+              Build curated communities with the signature Frandelli social experience.
             </h1>
             <p className="hero-description">
-              Manage your network, spark meaningful discussions, and keep every circle informed with
-              a clean, professional feed.
+              Bring together creators, people, brands, and companies with trusted account controls
+              and the clean, modern visibility your teams need.
             </p>
           </div>
           <div className="auth-card">
             <h2>Sign In</h2>
-            <p className="card-subtitle">Access your verified company account.</p>
+            <p className="card-subtitle">Access your Frandelli C. Social control room.</p>
             <form className="auth-form">
               <label>
-                Work email
-                <input type="email" placeholder="name@signalpulse.com" />
+                Email
+                <input type="email" placeholder="you@frandelli.social" />
               </label>
               <label>
                 Password
@@ -76,10 +96,10 @@ function App() {
               <button type="submit" className="primary-btn">
                 Sign In
               </button>
-              <button type="button" className="secondary-btn">
-                Go to Sign Up
-              </button>
-              <a className="link" href="#forgot">
+              <a className="secondary-btn" href="#signup">
+                Create new account
+              </a>
+              <a className="link" href="#reset-modal">
                 Forgot my password
               </a>
             </form>
@@ -87,19 +107,92 @@ function App() {
         </div>
       </section>
 
+      <section className="signup-view" id="signup">
+        <header className="app-header">
+          <div className="logo-mark">FC</div>
+          <div>
+            <p className="brand-title">Frandelli C. Social</p>
+            <p className="brand-subtitle">New account setup</p>
+          </div>
+        </header>
+        <div className="signup-card">
+          <div>
+            <h2>Sign Up</h2>
+            <p className="card-subtitle">Join the Frandelli Platforms social directory.</p>
+          </div>
+          <form className="signup-form">
+            <label>
+              Full name
+              <input type="text" placeholder="Type your name" />
+            </label>
+            <label>
+              Email
+              <input type="email" placeholder="name@frandelli.social" />
+            </label>
+            <label>
+              Password
+              <input type="password" placeholder="Create a secure password" />
+            </label>
+            <label>
+              Birthdate
+              <input type="date" />
+            </label>
+            <label>
+              Country
+              <input type="text" placeholder="Country" />
+            </label>
+            <label>
+              State
+              <input type="text" placeholder="State" />
+            </label>
+            <label>
+              City
+              <input type="text" placeholder="City" />
+            </label>
+            <label>
+              Civil status
+              <select>
+                <option>Single</option>
+                <option>Married</option>
+                <option>Empresa</option>
+              </select>
+            </label>
+            <label>
+              Tipo de conta
+              <select>
+                <option>criador</option>
+                <option>pessoa</option>
+                <option>marca</option>
+                <option>empresa</option>
+              </select>
+            </label>
+            <label>
+              Photo URL
+              <input type="text" placeholder="https://" />
+            </label>
+            <button type="submit" className="primary-btn">
+              Create account
+            </button>
+            <a className="secondary-btn" href="#signin">
+              Back to sign in
+            </a>
+          </form>
+        </div>
+      </section>
+
       <section className="listing-view">
         <header className="listing-header">
           <div className="listing-brand">
-            <div className="logo-mark">SP</div>
+            <div className="logo-mark">FC</div>
             <div>
-              <p className="brand-title">SignalPulse</p>
-              <p className="brand-subtitle">Company Social Console</p>
+              <p className="brand-title">Frandelli C. Social</p>
+              <p className="brand-subtitle">FSusercontrol directory</p>
             </div>
           </div>
           <div className="user-meta">
             <div>
-              <p className="user-name">Ariana Patel</p>
-              <p className="user-role">Community Operations</p>
+              <p className="user-name">Giulia Frandelli</p>
+              <p className="user-role">Platform Admin</p>
             </div>
             <button className="tiny-btn" type="button">
               Sign Out
@@ -108,52 +201,118 @@ function App() {
         </header>
 
         <div className="filter-bar">
-          <input type="text" placeholder="Search community listings" />
+          <input type="text" placeholder="Filter by name" />
+          <input type="text" placeholder="Filter by email" />
           <select>
-            <option>Status: All</option>
-            <option>Active</option>
-            <option>Paused</option>
+            <option>Birthdate</option>
+            <option>Before 1990</option>
+            <option>1990 - 2000</option>
+            <option>After 2000</option>
           </select>
           <select>
-            <option>Audience: Global</option>
-            <option>Local</option>
-            <option>Regional</option>
+            <option>Country</option>
+            <option>Brazil</option>
+            <option>Portugal</option>
+            <option>USA</option>
           </select>
           <select>
-            <option>Category: Any</option>
-            <option>Creators</option>
-            <option>Business</option>
-            <option>Wellness</option>
+            <option>State</option>
+            <option>São Paulo</option>
+            <option>Lisbon</option>
+            <option>California</option>
           </select>
           <select>
-            <option>Engagement: High</option>
-            <option>Medium</option>
-            <option>Low</option>
+            <option>City</option>
+            <option>Campinas</option>
+            <option>Lisboa</option>
+            <option>San Diego</option>
           </select>
           <select>
-            <option>Sort: Newest</option>
-            <option>Oldest</option>
-            <option>Trending</option>
+            <option>Photo</option>
+            <option>Has photo</option>
+            <option>No photo</option>
+          </select>
+          <select>
+            <option>Password</option>
+            <option>Set</option>
+            <option>Needs reset</option>
+          </select>
+          <select>
+            <option>Civil status</option>
+            <option>Single</option>
+            <option>Married</option>
+            <option>Empresa</option>
+          </select>
+          <select>
+            <option>Tipo de conta</option>
+            <option>criador</option>
+            <option>pessoa</option>
+            <option>marca</option>
+            <option>empresa</option>
           </select>
         </div>
 
         <div className="card-grid">
-          {listings.map((listing) => (
-            <article className="listing-card" key={listing.id}>
-              <div className="card-image">
-                <span>{listing.tag}</span>
+          {users.map((user) => (
+            <article className="listing-card" key={user.id}>
+              <div
+                className="card-image"
+                style={{
+                  backgroundImage: `url(${user.photo})`,
+                }}
+              >
+                <span>{user.accountType}</span>
               </div>
               <div className="card-body">
-                <h3>{listing.title}</h3>
-                <p>{listing.summary}</p>
-                <button className="ghost-btn" type="button">
-                  View analytics
-                </button>
+                <div className="card-header">
+                  <h3>{user.name}</h3>
+                  <p>{user.email}</p>
+                </div>
+                <div className="card-details">
+                  <p>
+                    <strong>Birthdate:</strong> {user.birthdate}
+                  </p>
+                  <p>
+                    <strong>Country:</strong> {user.country}
+                  </p>
+                  <p>
+                    <strong>State:</strong> {user.state}
+                  </p>
+                  <p>
+                    <strong>City:</strong> {user.city}
+                  </p>
+                  <p>
+                    <strong>Civil status:</strong> {user.civilStatus}
+                  </p>
+                  <p>
+                    <strong>Password:</strong> {user.password}
+                  </p>
+                </div>
               </div>
             </article>
           ))}
         </div>
       </section>
+
+      <div className="modal" id="reset-modal" role="dialog" aria-modal="true">
+        <div className="modal-card">
+          <h3>Reset your password</h3>
+          <p>
+            We will email a secure reset link to the address on file for your Frandelli C. Social
+            account.
+          </p>
+          <label>
+            Email
+            <input type="email" placeholder="you@frandelli.social" />
+          </label>
+          <button className="primary-btn" type="button">
+            Send reset email
+          </button>
+          <a className="modal-close" href="#signin">
+            Close
+          </a>
+        </div>
+      </div>
     </div>
   )
 }
