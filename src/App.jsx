@@ -1,108 +1,61 @@
-import { useEffect, useState } from 'react'
 import './App.css'
 
-const fallbackPhoto =
-  'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="%23ff7a59"/><stop offset="1" stop-color="%239b5cff"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="40" fill="white" font-family="Arial" text-anchor="middle">FC</text></svg>'
+const users = [
+  {
+    id: 1,
+    name: 'Sofia Martins',
+    birthdate: '1994-03-12',
+    country: 'Brazil',
+    state: 'São Paulo',
+    city: 'Campinas',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="%23ff7a59"/><stop offset="1" stop-color="%239b5cff"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">SM</text></svg>',
+    email: 'sofia@frandelli.social',
+    civilStatus: 'Single',
+    accountType: 'criador',
+  },
+  {
+    id: 2,
+    name: 'Lucas Ortega',
+    birthdate: '1988-11-05',
+    country: 'Portugal',
+    state: 'Lisbon',
+    city: 'Lisboa',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="1" x2="0" y1="0" y2="1"><stop stop-color="%2303c988"/><stop offset="1" stop-color="%230042ff"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">LO</text></svg>',
+    email: 'lucas@frandelli.social',
+    civilStatus: 'Married',
+    accountType: 'marca',
+  },
+  {
+    id: 3,
+    name: 'Maya Kim',
+    birthdate: '1999-07-21',
+    country: 'USA',
+    state: 'California',
+    city: 'San Diego',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="1" y2="0"><stop stop-color="%23ffd166"/><stop offset="1" stop-color="%23ff006e"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="44" fill="white" font-family="Arial" text-anchor="middle">MK</text></svg>',
+    email: 'maya@frandelli.social',
+    civilStatus: 'Single',
+    accountType: 'pessoa',
+  },
+  {
+    id: 4,
+    name: 'Frandelli Platforms',
+    birthdate: '2012-09-01',
+    country: 'Brazil',
+    state: 'Rio de Janeiro',
+    city: 'Rio de Janeiro',
+    photo:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="260"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="%2348cae4"/><stop offset="1" stop-color="%230077b6"/></linearGradient></defs><rect width="400" height="260" fill="url(%23g)"/><text x="50%" y="55%" font-size="38" fill="white" font-family="Arial" text-anchor="middle">FP</text></svg>',
+    email: 'hello@frandelli.social',
+    civilStatus: 'Empresa',
+    accountType: 'empresa',
+  },
+]
 
 function App() {
-  const [users, setUsers] = useState([])
-  const [status, setStatus] = useState('loading')
-  const [pinUnlocked, setPinUnlocked] = useState(false)
-
-  useEffect(() => {
-    let isMounted = true
-    const controller = new AbortController()
-
-    const fetchUsers = async () => {
-      setStatus('loading')
-      try {
-        const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID
-        const apiKey = import.meta.env.VITE_FIREBASE_API_KEY
-
-        if (!projectId || !apiKey) {
-          throw new Error('Missing Firebase credentials')
-        }
-
-        const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/FSusercontrol?key=${apiKey}`
-        const response = await fetch(url, { signal: controller.signal })
-        const payload = await response.json()
-
-        const records = (payload.documents || []).map((doc) => {
-          const fields = doc.fields || {}
-          const getValue = (key) => fields[key]?.stringValue ?? fields[key]?.timestampValue ?? '—'
-
-          return {
-            id: doc.name?.split('/').pop() || doc.name,
-            name: getValue('name'),
-            birthdate: getValue('birthdate'),
-            country: getValue('country'),
-            state: getValue('state'),
-            city: getValue('city'),
-            photo: getValue('photo'),
-            email: getValue('email'),
-            civilStatus: getValue('civil status'),
-            accountType: getValue('tipo de conta'),
-          }
-        })
-
-        if (isMounted) {
-          setUsers(records)
-          setStatus('ready')
-        }
-      } catch (error) {
-        if (isMounted) {
-          setStatus('error')
-        }
-      }
-    }
-
-    fetchUsers()
-
-    return () => {
-      isMounted = false
-      controller.abort()
-    }
-  }, [])
-
-  if (!pinUnlocked) {
-    return (
-      <div className="app">
-        <section className="pin-view">
-          <header className="app-header">
-            <div className="logo-mark">
-              <img className="logo-image" src="/fr1.png" alt="Frandelli logo" />
-            </div>
-            <div>
-              <p className="brand-title">Frandelli C. Social</p>
-              <p className="brand-subtitle">Secure access by Frandelli Platforms</p>
-            </div>
-          </header>
-          <div className="pin-card">
-            <h2>Enter encrypted PIN</h2>
-            <p className="card-subtitle">
-              Provide your cryptographed access PIN to continue to Sign In.
-            </p>
-            <form
-              className="pin-form"
-              onSubmit={(event) => {
-                event.preventDefault()
-                setPinUnlocked(true)
-              }}
-            >
-              <label>
-                Encrypted PIN
-                <input type="password" placeholder="••••••••••" />
-              </label>
-              <button type="submit" className="primary-btn">
-                Unlock access
-              </button>
-            </form>
-          </div>
-        </section>
-      </div>
-    )
-  }
-
   return (
     <div className="app">
       <section className="auth-view" id="signin">
@@ -301,64 +254,43 @@ function App() {
           </select>
         </div>
 
-        {status === 'loading' && (
-          <div className="status-message">
-            <h3>Loading FSusercontrol records</h3>
-            <p>Connecting to your Firebase database and syncing users.</p>
-          </div>
-        )}
-        {status === 'error' && (
-          <div className="status-message status-error">
-            <h3>Unable to load users</h3>
-            <p>Add your Firebase project ID and API key to view FSusercontrol data.</p>
-          </div>
-        )}
-        {status === 'ready' && users.length === 0 && (
-          <div className="status-message">
-            <h3>No users found</h3>
-            <p>FSusercontrol is currently empty. Add users to see them here.</p>
-          </div>
-        )}
-
-        {status === 'ready' && users.length > 0 && (
-          <div className="card-grid">
-            {users.map((user) => (
-              <article className="listing-card" key={user.id}>
-                <div
-                  className="card-image"
-                  style={{
-                    backgroundImage: `url(${user.photo !== '—' ? user.photo : fallbackPhoto})`,
-                  }}
-                >
-                  <span>{user.accountType}</span>
+        <div className="card-grid">
+          {users.map((user) => (
+            <article className="listing-card" key={user.id}>
+              <div
+                className="card-image"
+                style={{
+                  backgroundImage: `url(${user.photo})`,
+                }}
+              >
+                <span>{user.accountType}</span>
+              </div>
+              <div className="card-body">
+                <div className="card-header">
+                  <h3>{user.name}</h3>
+                  <p>{user.email}</p>
                 </div>
-                <div className="card-body">
-                  <div className="card-header">
-                    <h3>{user.name}</h3>
-                    <p>{user.email}</p>
-                  </div>
-                  <div className="card-details">
-                    <p>
-                      <strong>Birthdate:</strong> {user.birthdate}
-                    </p>
-                    <p>
-                      <strong>Country:</strong> {user.country}
-                    </p>
-                    <p>
-                      <strong>State:</strong> {user.state}
-                    </p>
-                    <p>
-                      <strong>City:</strong> {user.city}
-                    </p>
-                    <p>
-                      <strong>Civil status:</strong> {user.civilStatus}
-                    </p>
-                  </div>
+                <div className="card-details">
+                  <p>
+                    <strong>Birthdate:</strong> {user.birthdate}
+                  </p>
+                  <p>
+                    <strong>Country:</strong> {user.country}
+                  </p>
+                  <p>
+                    <strong>State:</strong> {user.state}
+                  </p>
+                  <p>
+                    <strong>City:</strong> {user.city}
+                  </p>
+                  <p>
+                    <strong>Civil status:</strong> {user.civilStatus}
+                  </p>
                 </div>
-              </article>
-            ))}
-          </div>
-        )}
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <div className="modal" id="reset-modal" role="dialog" aria-modal="true">
