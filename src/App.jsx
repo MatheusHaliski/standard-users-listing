@@ -8,6 +8,9 @@ function App() {
   const [users, setUsers] = useState([])
   const [status, setStatus] = useState('loading')
   const [pinUnlocked, setPinUnlocked] = useState(false)
+  const [pinValue, setPinValue] = useState('')
+  const [pinStatus, setPinStatus] = useState('idle')
+  const [pinError, setPinError] = useState('')
 
   useEffect(() => {
     let isMounted = true
@@ -75,18 +78,61 @@ function App() {
             </p>
             <form
               className="pin-form"
-              onSubmit={(event) => {
+              onSubmit={async (event) => {
                 event.preventDefault()
-                setPinUnlocked(true)
+                setPinStatus('loading')
+                setPinError('')
+
+                try {
+                  const endpoint = import.meta.env.VITE_PIN_ENDPOINT
+
+                  if (!endpoint) {
+                    throw new Error('Missing PIN endpoint')
+                  }
+
+                  const encoder = new TextEncoder()
+                  const digest = await crypto.subtle.digest(
+                    'SHA-256',
+                    encoder.encode(pinValue.trim())
+                  )
+                  const hash = Array.from(new Uint8Array(digest))
+                    .map((byte) => byte.toString(16).padStart(2, '0'))
+                    .join('')
+
+                  const response = await fetch(endpoint)
+                  const payload = await response.json()
+                  const expectedHash = payload.hash
+
+                  if (!expectedHash) {
+                    throw new Error('Missing PIN hash')
+                  }
+
+                  if (hash === expectedHash) {
+                    setPinUnlocked(true)
+                    setPinStatus('idle')
+                  } else {
+                    setPinStatus('error')
+                    setPinError('PIN not recognized. Please try again.')
+                  }
+                } catch (error) {
+                  setPinStatus('error')
+                  setPinError('Unable to validate PIN. Check your endpoint configuration.')
+                }
               }}
             >
               <label>
                 Encrypted PIN
-                <input type="password" placeholder="••••••••••" />
+                <input
+                  type="password"
+                  placeholder="••••••••••"
+                  value={pinValue}
+                  onChange={(event) => setPinValue(event.target.value)}
+                />
               </label>
               <button type="submit" className="primary-btn">
-                Unlock access
+                {pinStatus === 'loading' ? 'Validating...' : 'Unlock access'}
               </button>
+              {pinStatus === 'error' && <p className="pin-error">{pinError}</p>}
             </form>
           </div>
         </section>
