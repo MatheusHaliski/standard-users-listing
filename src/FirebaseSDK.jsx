@@ -4,12 +4,13 @@ import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN, // ex: funcionarioslistaapp2025.web.app
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    apiKey: "AIzaSyA_pHu5ASG9PAhmcEwxcckXGovRWYW0Mic",
+  authDomain: "funcionarioslistaapp2025.firebaseapp.com",
+  projectId: "funcionarioslistaapp2025",
+  storageBucket: "funcionarioslistaapp2025.firebasestorage.app",
+  messagingSenderId: "457209482063",
+  appId: "1:457209482063:web:a6c1bf1224842970be133a",
+  measurementId: "G-HF0RYXCWZN"
 };
 
 // evita inicializar duas vezes (HMR / múltiplos imports)
