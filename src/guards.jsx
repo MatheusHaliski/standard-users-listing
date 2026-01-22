@@ -27,5 +27,5 @@ export function RequireGoogle({ children }) {
 // opcional: DEV unlock
 export function RequireDev({ children }) {
     const ok = localStorage.getItem(Keys.DEV_UNLOCKED) === "true";
-    return ok ? children : <Navigate to="/welcome" replace />;
+    return ok ? children : <Navigate to="/dev-auth" replace />;
 }
