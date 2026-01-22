@@ -1,8 +1,9 @@
-import {Keys} from "./guards.jsx";
+import { Keys } from "./guards.jsx";
 import React from "react";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
+
 export default function SignUpView() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     return (
         <section className="signup-view" id="signup">
@@ -76,20 +77,19 @@ export default function SignUpView() {
                     </label>
                     <button type="submit" className="primary-btn">
                         Create account
-                        </button>
-                        <button
-                            className="tiny-btn"
-                            type="button"
-                            onClick={() => {
-                                localStorage.removeItem(Keys.AUTH_KEY) // logout
-                                navigate("/signin", { replace: true })
-                            }}
-                        >
-                            Back
-                        </button>
+                    </button>
+                    <button
+                        className="tiny-btn"
+                        type="button"
+                        onClick={() => {
+                            localStorage.removeItem(Keys.AUTH_KEY);
+                            navigate("/auth", { replace: true });
+                        }}
+                    >
+                        Back
+                    </button>
                 </form>
             </div>
         </section>
-
-    )
+    );
 }

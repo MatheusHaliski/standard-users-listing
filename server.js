@@ -1,21 +1,20 @@
-import express from 'express'
-import cors from 'cors'
-import crypto from 'crypto'
+import express from "express"
+import path from "node:path"
+import { fileURLToPath } from "node:url"
 
 const app = express()
-app.use(cors())
-app.use(express.json())
+const PORT = process.env.PORT || 5174
 
-// WARNING: for production, do NOT keep plaintext PIN in code.
-// Use env var + rate limit + HTTPS.
-const PIN_SECRET = process.env.PIN_SECRET || '18405'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const distPath = path.join(__dirname, "dist")
 
-app.get('/pin-hash', (_req, res) => {
-  const hash = crypto.createHash('sha256').update(PIN_SECRET).digest('hex')
-  res.json({ hash })
+app.use(express.static(distPath))
+
+app.get("*", (_req, res) => {
+  res.sendFile(path.join(distPath, "index.html"))
 })
 
-const PORT = process.env.PORT || 5174
 app.listen(PORT, () => {
-  console.log(`PIN server listening on http://localhost:${PORT}`)
+  console.log(`Frontend server listening on http://localhost:${PORT}`)
 })
