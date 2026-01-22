@@ -62,17 +62,15 @@ export default function WelcomeLockedView() {
                         <p className="card-subtitle">Both Google Sign-In and PIN are required.</p>
                     </div>
 
-                    <div className="pin-form">
-                        <button type="button" className="primary-btn" onClick={onLogin}>
-                            {googleReady ? "Google connected" : "Sign in with Google"}
-                        </button>
-                        <p className="card-subtitle">
-                            {googleReady ? "Google account verified ✅" : "Connect your Google account to continue."}
-                        </p>
-                        {googleError && <p className="pin-error">{googleError}</p>}
-                    </div>
-
-                    <PinView inline redirectTo="/auth" disabled={!googleReady} />
+                    {googleError && <p className="pin-error">{googleError}</p>}
+                    <PinView
+                        inline
+                        redirectTo="/auth"
+                        disabled={!googleReady}
+                        sharedSignIn
+                        sharedReady={googleReady}
+                        onSharedSignIn={onLogin}
+                    />
                 </div>
             </div>
         </section>

@@ -7,7 +7,14 @@ import { Keys } from "./guards.jsx";
 const DEFAULT_PIN = "0601";
 const DEFAULT_REDIRECT = "/auth";
 
-export default function PinView({ redirectTo = DEFAULT_REDIRECT, disabled = false, inline = false }) {
+export default function PinView({
+    redirectTo = DEFAULT_REDIRECT,
+    disabled = false,
+    inline = false,
+    sharedSignIn = false,
+    sharedReady = false,
+    onSharedSignIn,
+}) {
     const navigate = useNavigate();
 
     const [pin, setPin] = useState("");
@@ -49,8 +56,8 @@ export default function PinView({ redirectTo = DEFAULT_REDIRECT, disabled = fals
         };
     }, [pinHash, pinSeed]);
 
-    async function onSubmit(e) {
-        e.preventDefault();
+    async function handleSubmit(e) {
+        e?.preventDefault();
         setError("");
 
         if (disabled) {
@@ -79,6 +86,9 @@ export default function PinView({ redirectTo = DEFAULT_REDIRECT, disabled = fals
         navigate(redirectTo, { replace: true });
     }
 
+    const sharedButtonLabel = sharedReady ? "Unlock" : "Sign in with Google";
+    const buttonDisabled = sharedSignIn ? isLoading : isLoading || disabled;
+
     const content = (
         <>
             <div>
@@ -86,7 +96,7 @@ export default function PinView({ redirectTo = DEFAULT_REDIRECT, disabled = fals
                 <p className="card-subtitle">Enter the private access PIN to continue.</p>
             </div>
 
-            <form className="pin-form" onSubmit={onSubmit}>
+            <form className="pin-form" onSubmit={handleSubmit}>
                 <label>
                     PIN
                     <input
@@ -101,8 +111,19 @@ export default function PinView({ redirectTo = DEFAULT_REDIRECT, disabled = fals
 
                 {error && <p className="pin-error">{error}</p>}
 
-                <button type="submit" className="primary-btn" disabled={isLoading || disabled}>
-                    {isLoading ? "Verifying..." : "Unlock"}
+                <button
+                    type={sharedSignIn ? "button" : "submit"}
+                    className="primary-btn"
+                    disabled={buttonDisabled}
+                    onClick={() => {
+                        if (sharedSignIn && !sharedReady) {
+                            onSharedSignIn?.();
+                        } else if (sharedSignIn) {
+                            handleSubmit();
+                        }
+                    }}
+                >
+                    {isLoading ? "Verifying..." : sharedSignIn ? sharedButtonLabel : "Unlock"}
                 </button>
             </form>
         </>
