@@ -14,10 +14,7 @@ export default function App() {
             {/* PIN sempre acessível */}
             <Route path="/pin" element={<PinView />} />
 
-            {/* RESET NÃO deve exigir PIN (pra não prender o usuário no fluxo) */}
-            <Route path="/reset" element={<ResetPasswordView />} />
-
-            {/* SignIn/SignUp exigem PIN (opcional, mas mantive como você fez) */}
+            {/* Tudo abaixo exige PIN */}
             <Route
                 path="/signin"
                 element={
@@ -36,13 +33,22 @@ export default function App() {
                 }
             />
 
+            <Route
+                path="/reset"
+                element={
+                    <PinProtected>
+                        <ResetPasswordView />
+                    </PinProtected>
+                }
+            />
+
             {/* Filters exige PIN + autenticação */}
             <Route
                 path="/filters"
                 element={
                     <PinProtected>
                         <AuthProtected>
-                            <FiltersView />
+                            <FiltersView status={status} users={users} />
                         </AuthProtected>
                     </PinProtected>
                 }
