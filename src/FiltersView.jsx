@@ -31,8 +31,10 @@ export default function FiltersView({ status = "loading", users = [] }) {
                         className="tiny-btn"
                         type="button"
                         onClick={() => {
-                            localStorage.removeItem(Keys.AUTH_KEY) // logout
-                            navigate("/signin", { replace: true })
+                            localStorage.removeItem(Keys.AUTH_KEY)
+                            localStorage.removeItem(Keys.PIN_UNLOCKED)
+                            localStorage.removeItem(Keys.GOOGLE_AUTH)
+                            navigate("/auth", { replace: true })
                         }}
                     >
                         Sign Out

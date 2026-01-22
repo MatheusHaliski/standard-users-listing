@@ -3,32 +3,24 @@ import ReactDOM from "react-dom/client"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import "./App.css"
 
-import GoogleGate from "./GoogleGate.jsx"
-import PinView from "./PinView.jsx"
 import FiltersView from "./FiltersView.jsx"
+import AuthView from "./AuthView.jsx"
+import ResetPasswordView from "./ResetPasswordView.jsx"
+import SignUpView from "./SignUpView.jsx"
+import WelcomeLockedView from "./WelcomeLockedView.jsx"
 
 import { RequireGoogle, RequirePin } from "./guards.jsx"
-import AuthView from "./AuthView.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Navigate to="/google" replace />} />
+                <Route path="/" element={<Navigate to="/welcome" replace />} />
 
-                <Route path="/google" element={<GoogleGate />} />
+                <Route path="/welcome" element={<WelcomeLockedView />} />
 
                 <Route
-                    path="/pin"
-                    element={
-                        <RequireGoogle>
-                            <PinView />
-                        </RequireGoogle>
-                    }
-                />
-                {/* 🔑 AuthView agora é a primeira após PIN */}
-                <Route
-                    path="/signin"
+                    path="/auth"
                     element={
                         <RequireGoogle>
                             <RequirePin>
@@ -37,6 +29,29 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                         </RequireGoogle>
                     }
                 />
+
+                <Route
+                    path="/signup"
+                    element={
+                        <RequireGoogle>
+                            <RequirePin>
+                                <SignUpView />
+                            </RequirePin>
+                        </RequireGoogle>
+                    }
+                />
+
+                <Route
+                    path="/reset"
+                    element={
+                        <RequireGoogle>
+                            <RequirePin>
+                                <ResetPasswordView />
+                            </RequirePin>
+                        </RequireGoogle>
+                    }
+                />
+
                 <Route
                     path="/filters"
                     element={
@@ -48,7 +63,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     }
                 />
 
-                <Route path="*" element={<Navigate to="/google" replace />} />
+                <Route path="/signin" element={<Navigate to="/auth" replace />} />
+                <Route path="/google" element={<Navigate to="/welcome" replace />} />
+                <Route path="/pin" element={<Navigate to="/welcome" replace />} />
+
+                <Route path="*" element={<Navigate to="/welcome" replace />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
